@@ -15,7 +15,7 @@ from nexus_security import check_password, logout
 from nexus_report import generate_pdf
 
 # --- UI CONFIG ---
-st.set_page_config(page_title="Nexus AI", layout="wide", page_icon="⚡")
+st.set_page_config(page_title="Guru AI", layout="wide", page_icon="⚡")
 
 # --- 1. SECURITY GATE (Login Screen) ---
 if not check_password():
@@ -46,14 +46,14 @@ app = build_agent_graph(engine)
 
 # --- SIDEBAR & THEME ---
 # [FIX] Default to the professional theme
-current_theme = load_setting("theme", "Nexus Enterprise")
+current_theme = load_setting("theme", "GuruAi Enterprise")
 inject_theme_css(current_theme)
 
 # [FIX] Use the safe fallback if theme loading fails
-theme_data = THEMES.get(current_theme, THEMES["Nexus Enterprise"])
+theme_data = THEMES.get(current_theme, THEMES["GuruAi Enterprise"])
 
 with st.sidebar:
-    st.title("⚡ NEXUS HQ")
+    st.title("⚡ GuruAi")
     st.write(f"👤 **User:** {current_user}")
     st.caption(get_key_status())
 
@@ -115,7 +115,7 @@ with st.sidebar:
             st.rerun()
 
 # --- CHAT INTERFACE ---
-st.title("Nexus Intelligent Analytics")
+st.title("Guru Intelligent Analytics")
 
 # Load History
 history = load_history(current_sess)
@@ -138,7 +138,7 @@ if prompt:
         engine.column_str = ", ".join(list(engine.df.columns))
 
     # 3. Construct System Prompt
-    system_text = "You are Nexus, an advanced data analysis AI. You have access to a Python environment."
+    system_text = "You are GuruAi, an advanced data analysis AI. You have access to a Python environment."
     has_data = "df" in engine.scope
 
     if has_data:
