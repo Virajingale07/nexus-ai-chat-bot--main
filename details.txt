@@ -1,7 +1,0 @@
-GROQ_API_KEYS = "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"
-SUPABASE_URL = "https://naordtfbabkmzqhqtyfz.supabase.co"
-SUPABASE_KEY  = "sb_publishable_O-ban9J86Pw8pklIzMqhZQ_Z-tfeE47"
-TAVILY_API_KEYS = "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"
-
-
-supabase = Guru-ai-chat-bot
