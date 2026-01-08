@@ -62,37 +62,6 @@ with st.sidebar:
 
     st.divider()
 
-    # --- 2. DATA CENTER ---
-    st.markdown("### 📂 Data Center")
-    uploaded_file = st.file_uploader("Upload Dataset", type=['csv', 'xlsx', 'xls', 'json'],
-                                     help="Supported: CSV, Excel, JSON")
-
-    if uploaded_file:
-        status = engine.load_file(uploaded_file)
-        if "Error" in status:
-            st.error(status)
-        else:
-            st.success(status)
-
-    if st.button("🧹 Clear Plots", use_container_width=True):
-        plt.clf()
-        engine.latest_figure = None
-        if os.path.exists("temp_chart.png"): os.remove("temp_chart.png")
-        st.success("Plots cleared.")
-
-    st.divider()
-
-    # --- 3. REPORTING ---
-    st.markdown("### 📄 Reporting")
-    if st.button("📥 Export PDF Report", use_container_width=True):
-        with st.spinner("Compiling PDF..."):
-            history = load_history(current_sess)
-            pdf_file = generate_pdf(history, current_sess)
-        with open(pdf_file, "rb") as f:
-            st.download_button("⬇️ Download PDF", f, file_name=pdf_file, use_container_width=True)
-
-    st.divider()
-
     st.markdown("### 🕒 Session History")
     col1, col2 = st.columns(2)
     with col1:
@@ -113,6 +82,37 @@ with st.sidebar:
         if st.button(f"📂 {display_name}", key=s, use_container_width=True):
             st.session_state.current_session_id = s
             st.rerun()
+    st.divider()
+
+    # --- 3. DATA CENTER ---
+    st.markdown("### 📂 Data Center")
+    uploaded_file = st.file_uploader("Upload Dataset", type=['csv', 'xlsx', 'xls', 'json'],
+                                     help="Supported: CSV, Excel, JSON")
+
+    if uploaded_file:
+        status = engine.load_file(uploaded_file)
+        if "Error" in status:
+            st.error(status)
+        else:
+            st.success(status)
+
+    if st.button("🧹 Clear Plots", use_container_width=True):
+        plt.clf()
+        engine.latest_figure = None
+        if os.path.exists("temp_chart.png"): os.remove("temp_chart.png")
+        st.success("Plots cleared.")
+
+    st.divider()
+
+    # --- 4. REPORTING ---
+    st.markdown("### 📄 Reporting")
+    if st.button("📥 Export PDF Report", use_container_width=True):
+        with st.spinner("Compiling PDF..."):
+            history = load_history(current_sess)
+            pdf_file = generate_pdf(history, current_sess)
+        with open(pdf_file, "rb") as f:
+            st.download_button("⬇️ Download PDF", f, file_name=pdf_file, use_container_width=True)
+
 
 # --- CHAT INTERFACE ---
 st.title("Guru Intelligent Analytics")
